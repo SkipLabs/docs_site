@@ -4,7 +4,7 @@
         <title>Skip Blog</title>
         <link>https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog</link>
         <description>Skip Blog</description>
-        <lastBuildDate>Mon, 23 Dec 2024 17:05:18 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Dec 2024 09:33:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -12,7 +12,7 @@
             <title><![CDATA[Skip alpha]]></title>
             <link>https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog/skip-alpha</link>
             <guid>https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog/skip-alpha</guid>
-            <pubDate>Mon, 23 Dec 2024 17:05:18 GMT</pubDate>
+            <pubDate>Tue, 24 Dec 2024 09:33:58 GMT</pubDate>
             <description><![CDATA[Announce the alpha release of Skip]]></description>
             <content:encoded><![CDATA[<p>We’re pleased to share the alpha release of the <a href="https://github.com/SkipLabs/skip" target="_blank" rel="noopener noreferrer">Skip Framework</a>, an open source (MIT license) system for building and running reactive backend services.</p>
 <p>Skip gives Typescript developers a simple declarative way to implement and run read-mostly features and services that are performant, transparent and continuously updated.

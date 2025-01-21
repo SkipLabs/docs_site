@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.7.0">
 <title data-rh="true">runService() | Skip</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/img/skiplabs.svg"><meta data-rh="true" name="twitter:image" content="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/img/skiplabs.svg"><meta data-rh="true" property="og:url" content="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/docs/api/server/functions/runService"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="runService() | Skip"><meta data-rh="true" name="description" content="Initialize and start a reactive Skip service."><meta data-rh="true" property="og:description" content="Initialize and start a reactive Skip service."><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/docs/api/server/functions/runService"><link data-rh="true" rel="alternate" href="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/docs/api/server/functions/runService" hreflang="en"><link data-rh="true" rel="alternate" href="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/docs/api/server/functions/runService" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Skip RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Skip Atom Feed"><link rel="stylesheet" href="/assets/css/styles.d3c67885.css">
-<script src="/assets/js/runtime~main.f47143a8.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.0a9e09d9.js" defer="defer"></script>
 <script src="/assets/js/main.2d846569.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -40,13 +40,6 @@ Partial write (update only the specified keys) of an input collection.</p>
 <p>The <code>collection</code> must be the name of one of the service&#x27;s input collections, that is, one of the keys of the <code>Inputs</code> type parameter.
 The body of the request must be a JSON-encoded value of type <code>CollectionUpdate.values</code>, that is <code>[Json, Json[]][]</code>: an array of entries each of which associates a key to an array of its new values.
 Updates the named <code>collection</code> with the key-values entries in the request body.</p>
-</li>
-<li>
-<p><code>PUT /v1/inputs/:collection/:key</code>:
-Update of a single key of an input collection.</p>
-<p>The <code>collection</code> must be the name of one of the service&#x27;s input collections, that is, one of the keys of the <code>Inputs</code> type parameter.
-The body of the request must be a JSON-encoded array of the <code>key</code>&#x27;s new values.
-Updates the named <code>collection</code> to associate the <code>key</code> with the values in the request body.</p>
 </li>
 <li>
 <p><code>POST /v1/streams/:resource</code>:

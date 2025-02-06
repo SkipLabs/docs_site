@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog</id>
+    <id>https://skiplabs.io/blog</id>
     <title>Skip Blog</title>
     <updated>2024-12-24T09:33:58.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog"/>
+    <link rel="alternate" href="https://skiplabs.io/blog"/>
     <subtitle>Skip Blog</subtitle>
-    <icon>https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/img/favicon.svg</icon>
+    <icon>https://skiplabs.io/img/favicon.svg</icon>
     <entry>
         <title type="html"><![CDATA[Skip alpha]]></title>
-        <id>https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog/skip-alpha</id>
-        <link href="https://skiplabsdocscms-00-pbrstreetgang-00s-projects.vercel.app/blog/skip-alpha"/>
+        <id>https://skiplabs.io/blog/skip-alpha</id>
+        <link href="https://skiplabs.io/blog/skip-alpha"/>
         <updated>2024-12-24T09:33:58.000Z</updated>
         <summary type="html"><![CDATA[Announce the alpha release of Skip]]></summary>
         <content type="html"><![CDATA[<p>We’re pleased to share the alpha release of the <a href="https://github.com/SkipLabs/skip" target="_blank" rel="noopener noreferrer">Skip Framework</a>, an open source (MIT license) system for building and running reactive backend services.</p>

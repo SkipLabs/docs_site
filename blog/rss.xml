@@ -4,22 +4,102 @@
         <title>Skip Blog</title>
         <link>https://skiplabs.io/blog</link>
         <description>Skip Blog</description>
-        <lastBuildDate>Tue, 24 Dec 2024 09:33:58 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Feb 2025 12:00:01 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
+            <title><![CDATA[Why Skip?]]></title>
+            <link>https://skiplabs.io/blog/why-skip</link>
+            <guid>https://skiplabs.io/blog/why-skip</guid>
+            <pubDate>Tue, 11 Feb 2025 12:00:01 GMT</pubDate>
+            <description><![CDATA[Why use the Skip framework?]]></description>
+            <content:encoded><![CDATA[<p><strong>Skip After Meta</strong></p>
+<p>Facebook allowed us to open source both Hack and Skiplang so we could share both with the larger engineering community.  I eventually decided to leave Facebook (now Meta) to build on the work of Hack and Skiplang and develop technologies that would address the same challenges we had at Facebook but for engineers generally.  To do this, SkipLabs needed to incorporate two new technologies to make the work we did at Facebook usable in a normal engineering context.</p>
+<!-- -->
+<ol>
+<li>A way to manage objects transactionally as their state changes</li>
+</ol>
+<p>This is an essential and unique design choice in Skip’s approach to incremental computation.  Without it, developers have to program against streams and assume a large and insidiously subtle amount of complexity.  Incremental computation will only become mainstream if the dev and ops time experience is simpler and easier than the more common request/response paradigm, not just faster &amp; continuous.</p>
+<p>Object handling needed to go beyond simple caching.  We needed an in-memory system of objects and collections that could maintain an up-to-date view of the data as it changed which we call **reactive collections**.</p>
+<p>Most of the objects in a program can be managed with memoization: storing and reusing the results of expensive computations.  This can be fast, simple and efficient provided you know when to evict the memoized values.</p>
+<p>In Skip, memoized objects are held in “Lazy Collections.” They compute and cache results only when needed clients and will automatically evict data from the cache to save memory.</p>
+<p>Other objects serve as indices or dictionaries. These objects realistically cannot be memoized as every value in the dictionary needs to be up to date at all times.  Skip manages these objects as “Eager Collections,” keeping them in memory at all times and recomputing whenever a source updates.</p>
+<p><img decoding="async" loading="lazy" alt="Skip runtime internals diagram" src="https://skiplabs.io/assets/images/why_skip_runtime_diagram-6fd1189100dc284f6230addeab291097.png" width="1999" height="976" class="img_ev3q"></p>
+<ol start="2">
+<li>An ability to program services that compute incrementally but in familiar languages.</li>
+</ol>
+<p>Skiplang was built from the ground up to support incremental computing and it’s very well suited to that purpose.  Realistically engineering teams outside of Meta have already picked their languages and stacks and it would be unrealistic to expect everyone to change to meet Skip.</p>
+<p>We realized we could bring the most essential characteristics of Skiplang to already widely used languages, starting with TypeScript.  Skip aims to allow developers to implement programs declaratively while the framework automatically manages the state and decides what parts of the graph of computation need to be re-run.  For this to work, programs need to be deterministic, effect free and assume they are interacting with objects in a transactional heap.</p>
+<p><img decoding="async" loading="lazy" alt="Skip runtime application stack" src="https://skiplabs.io/assets/images/why_skip_stack_diagram-188ec39fb0cadfa25f50309b93dad915.png" width="1999" height="1268" class="img_ev3q"></p>
+<p>The Skip Runtime integrates with popular Typescript runtimes (e.g. Node, Bun) and using proxy objects gives Typescript a reactive, transactional heap.  We then added a Typescript API that gives developers a simple programming model of map functions applied to the objects Skip is now holding in its transactional heap.  In this way, developers get to stick with their preferred language while Skip can transparently manage both the state of the objects and directs when different parts of a program are recomputed.</p>
+<p>We added higher level features to the API to more easily manipulate those collections (filter, slice, join, etc ...), and added support for sub-collections (collections created while computing the entry of a collection), among other things.  In the future we think there’s an opportunity to add other (optional) higher level primitives to make building complex services even easier.</p>
+<p>Today the Skip Framework exclusively supports TypeScript.  We plan to add support for Python and Java in the near future and other languages in the medium term.</p>
+<p><strong>The Skip Framework</strong></p>
+<p>By combining a programming model that enforced effect-free operations on immutable objects with a runtime that abstracted away state and data management details, Skip has grown from a language to a full framework that we’ve recently released.</p>
+<p><strong>Why Skip is useful</strong></p>
+<p>Skip can power services that perform any combination of reads and writes but the main benefits are experienced with reads.  Skip gives read-based features &amp; functions several advantages over the more typical request/response model.</p>
+<p>Skip programs will:</p>
+<p>Continuously react to changes in data and clients - by managing the state of objects and the impact of functions on those objects, Skip services can incrementally recompute and stream new values to clients without recomputing unchanged values unnecessarily.</p>
+<p>Automatically manage their own state - a feature may need to fetch data from multiple sources, compute intermediate results in a specific order while hydrating &amp; invalidating different caches.  In Skip all of this complexity is handled by the framework.  Developers just write functions against collections for a single point in time.</p>
+<p>Let you introspect their execution - reactive programs are historically challenging to inspect and debug.  Because the Skip runtime manages both the objects and their graph of computation, Skip programs are very easy to introspect.  We plan to add a debugger to the framework to capitalize on this part of the design.</p>
+<p>Work alongside traditional request / response programs - Unlike past approaches to state management and reactivity, we wanted to make sure Skip was not an “all or nothing” engineering decision.  Vertically, Skip can run in one or several layers of an existing software stack. It can read and write data from preexisting REST services, streaming sources or some legacy backend.  Skip can also power a new service where it reads and writes from a traditional database.</p>
+<p>Horizontally, Skip can power some or all the features of an application’s backend and coexists with other business logic written in other frameworks, languages, etc.  Within Skip’s context it's very easy to extend what you’ve implemented in a service through a feature called “mirroring” that lets a new service import and synchronize data from a pre-existing peer service.</p>
+<p><strong>Why it feels awesome to use Skip</strong></p>
+<p>Skip lets developers focus on the "what" instead of the "how." By defining the desired outcome declaratively, Skip generates the necessary logic to keep data live and reactive. It handles complexities like cache invalidation and recomputation efficiently without adding any cognitive burden for the developer.</p>
+<p>We took a graph-based approach to the Skip programming model. You define your computation as a series of operations on collections, creating a **graph of reactive computations**. Each node in the graph can be a lazy or eager collection, and the framework automatically manages dependencies, updates, and cache invalidation for you.</p>
+<p>Here’s the magic: You write your program as if **time is frozen**, defining static outputs in terms of static inputs.  Skip then turns this into a live, streaming system. If an input changes, the framework efficiently propagates updates to the affected parts of the graph, ensuring everything stays consistent. It even supports transactional updates, so you can modify multiple inputs simultaneously without breaking consistency.</p>
+<p>This approach not only makes building incremental features easier but also scales better as the system grows. By focusing on what you want to build and letting Skip handle the rest, developers can deliver live, interactive features without the typical headaches.</p>
+<p><strong>Why Skip matters</strong></p>
+<p>Skip isn’t just about solving caching or problems of incremental computation, it’s about rethinking how we build systems that deal with constantly changing data. By giving developers tools to handle immutability, caching, and reactivity seamlessly, Skip makes it easier to write reliable, efficient, fast and scalable applications.</p>
+<p>By combining the lessons learned from Facebook’s early challenges with the innovation of Skip, we’ve charted a path toward solving some of the most complex problems in real-time and reactive systems. This is just the beginning, and we’re excited to see where this journey takes us next.</p>]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Skip's Origins]]></title>
+            <link>https://skiplabs.io/blog/skips-origins</link>
+            <guid>https://skiplabs.io/blog/skips-origins</guid>
+            <pubDate>Tue, 11 Feb 2025 12:00:00 GMT</pubDate>
+            <description><![CDATA[Describe the origins of the Skip framework and programming language.]]></description>
+            <content:encoded><![CDATA[<p><strong>Coping with success</strong></p>
+<p>I joined a much-smaller-than-today’s Facebook in 2011 to work on what would eventually become the developer tools team. At the time I joined, the engineering team was in the hundreds and the tools we had for development were, well, not great. PHP was the backbone of almost everything, with millions of lines of code. JavaScript was secondary, and only a few critical services ran on other languages. The company was scaling rapidly, and our development practices weren’t keeping up.</p>
+<p>As the codebase grew, so did the difficulty of maintaining and improving it.  Facebook became much more feature rich and simple enhancements became complicated and error prone.  Often new features needed to operate conditionally on how other preexisting features were already operating.  Essentially with each new layer of features teams added, state management became a greater concern.</p>
+<!-- -->
+<p><strong>Power of type systems</strong></p>
+<p>Facebook’s codebase relied heavily on dynamic constructs called “gatekeepers” that determined which features were live for which users under different conditions. But these gatekeepers could change which code paths were executed in ways that weren’t always obvious during development.</p>
+<p>The inability to recreate the state of a path made testing and refactoring a nightmare. Imagine this: you tweak a method, and three weeks later, you’re woken up at 3 AM because your change broke something deep in the application. Over time developers stopped touching critical parts of the codebase. Instead of refactoring and improving existing code, they’d build parallel versions—hacks on top of hacks. The technical debt was piling up, and we needed a way to make changes safely and confidently.</p>
+<p>We believed we could use types to make deeper static analysis and automatic refactoring possible in the PHP language and this would help engineers bring some order to the chaos.  The system was called Hack. Adoption wasn’t immediate—there was some resistance—but over time, developers saw the value. We intentionally designed the type system to be more flexible than strictly “correct.” This decision allowed us to cover more of the codebase quickly, even if it meant making some trade-offs in precision. It worked. Hack became the default way to write PHP at Facebook, and it’s still in use today.</p>
+<p><strong>Incrementality</strong></p>
+<p>As Facebook applications grew denser and more layered, more teams were looking to add real-time features where users’ actions immediately impact others, like clicking a "Like" button and instantly updating the count across everyone’s apps.  Such features are essential because performance and interactivity grew user engagement. When an application feels fresh and interactive, it’s much more appealing than static content. However, implementing this in a scalable way is not straightforward.</p>
+<p>A typical scenario: you fetch a Facebook post. Normally, the server retrieves data like the post’s text, the number of likes, and the comments. It applies rules to filter and prioritize what’s shown (e.g., highlighting the most relevant comments or enforcing privacy settings). This logic runs once and produces a static result—the post you see on your screen.</p>
+<p><img decoding="async" loading="lazy" alt="Non-reactive request flow" src="https://skiplabs.io/assets/images/skips_origins_nonreactive_flow-27b5b4e943dfe82e44c7963cdcba989e.png" width="1468" height="572" class="img_ev3q"></p>
+<p>Making this "live" means the post updates automatically. If someone likes it, the count changes instantly. If a comment gets edited or deleted, it reflects for everyone in real time. Achieving this requires "inverting the arrow."  Traditionally, a user’s actions—like adding a comment— produces a write to the database. To make things reactive, engineers needed to turn these writes into continuous streams of updates. For example:</p>
+<p>1. <strong>User likes a post</strong> → Create a stream of updates for that post’s like count.
+2. <strong>User adds a comment</strong> → Create a stream for the comments section.</p>
+<p><img decoding="async" loading="lazy" alt="Reactive request flow" src="https://skiplabs.io/assets/images/skips_origins_reactive_flow-3e80732b4a2c80754a7c693c91fc5806.png" width="1468" height="572" class="img_ev3q"></p>
+<p>Typically reactive frameworks compose these streams into live updates. While conceptually straightforward, this approach fell short because:</p>
+<p><strong>Excessive recomputations</strong>: Each small change could require recalculating the entire post, which is expensive and inefficient.</p>
+<p><strong>Caching problems</strong>: To compute incrementally but avoid excessive fetching and recomputation, you need caches. But managing caches as objects are mutated becomes a nightmare—how do you ensure they’re up-to-date without introducing inconsistencies?</p>
+<p>Caches can work well for "hot" data—frequently accessed data with a short lifespan. But outside this narrow use case, caching comes with trade-offs:</p>
+<p>1. <strong>Long TTL (Time-to-Live)</strong>: Keeps data in the cache longer, but risks showing stale or inconsistent data.
+2. <strong>Manual Invalidation</strong>: Requires custom logic to invalidate caches when data changes. This is extremely error-prone and hard to maintain.</p>
+<p>For large-scale systems like Facebook, neither approach was sustainable. We needed a better solution.</p>
+<p>We created Skiplang to better serve our needs for better state management and real-time features &amp; services.  We believed we could use our experience developing type systems to flip the way we think about reactive systems. Instead of starting with database writes and building logic from there, Skiplang let you:</p>
+<p>1. <strong>Define the Desired Output</strong>: Begin with what you want to build (e.g. a Facebook post).
+2. <strong>Use Declarative Rules</strong>: Specify what data is needed and how it’s combined.</p>
+<p>Skiplang was originally designed to handle incremental computation and caching, but its capabilities quickly expanded to address the needs of reactive features and efficient data handling.  We built Skiplang on the premise that <strong>cached objects were immutable</strong> - unchangeable once created. If we could guarantee that immutability, it would be easier to use static analysis of Skiplang’s typed language to track dependencies and know exactly when to invalidate the cache and where to recompute.  Traditional programming languages didn’t give us the tools to enforce these guarantees.</p>]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Skip alpha]]></title>
             <link>https://skiplabs.io/blog/skip-alpha</link>
             <guid>https://skiplabs.io/blog/skip-alpha</guid>
-            <pubDate>Tue, 24 Dec 2024 09:33:58 GMT</pubDate>
+            <pubDate>Tue, 24 Dec 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Announce the alpha release of Skip]]></description>
             <content:encoded><![CDATA[<p>We’re pleased to share the alpha release of the <a href="https://github.com/SkipLabs/skip" target="_blank" rel="noopener noreferrer">Skip Framework</a>, an open source (MIT license) system for building and running reactive backend services.</p>
 <p>Skip gives Typescript developers a simple declarative way to implement and run read-mostly features and services that are performant, transparent and continuously updated.
 The framework handles all the complexities of state management, integrations and failure handling in the process.</p>
 <!-- -->
 <p>You can install via:</p>
-<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npm i @skipruntime/core @skipruntime/server @skipruntime/helpers</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npm i @skiplabs/skip</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <p>This is an alpha release - we are happy with its stability and functionality but are looking forward to feedback on the interfaces and developer experience.</p>
 <p>If you have time to check it out over the holidays and have feedback or just questions, <a href="https://discord.gg/4dMEBA46mE" target="_blank" rel="noopener noreferrer">come talk to us in discord</a>.</p>
 <p>Happy holidays,</p>

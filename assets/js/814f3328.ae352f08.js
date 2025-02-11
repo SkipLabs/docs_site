@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwww=self.webpackChunkwww||[]).push([[7472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Skip alpha","permalink":"/blog/skip-alpha","unlisted":false,"date":"2024-12-24T09:33:58.000Z"}]}')}}]);

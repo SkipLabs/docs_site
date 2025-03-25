@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwww=self.webpackChunkwww||[]).push([[8947],{6600:e=>{e.exports=JSON.parse('{"authors":[{"name":"Julien Verlaguet","title":"SkipLabs Founder & CEO","url":"https://x.com/JulienVerlaguet","key":"jverlaguet","page":null,"count":2},{"name":"SkipLabs Team","key":"skiplabsteam","page":null,"count":1}]}')}}]);

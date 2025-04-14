@@ -8,11 +8,11 @@
     <subtitle>Skip Blog</subtitle>
     <icon>https://skiplabs.io/img/favicon.svg</icon>
     <entry>
-        <title type="html"><![CDATA[Skip services with non-reactive dependencies]]></title>
+        <title type="html"><![CDATA[New built-in resources for Skip services]]></title>
         <id>https://skiplabs.io/blog/non-reactive-dependencies</id>
         <link href="https://skiplabs.io/blog/non-reactive-dependencies"/>
         <updated>2025-04-14T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[External integrations for the Skip framework]]></summary>
+        <summary type="html"><![CDATA[How to make Postgres and Kafka-backed reactive services]]></summary>
         <content type="html"><![CDATA[<p>The Skip framework is a system for building and running incremental backend services, simplifying the challenges of engineering complex reactive systems.</p>
 <p>While Skip reactive services compose naturally with <em>each other</em>, they must also coexist with other backend systems with non-reactive semantics and APIs.</p>
 <p>This blog post describes some recent enhancements we've made to the Skip framework to make it easy to bridge the reactive/non-reactive interface for popular systems like PostgreSQL and Kafka, and shows how you can build similar integrations with other systems and APIs.</p>

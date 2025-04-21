@@ -4,10 +4,74 @@
         <title>Skip Blog</title>
         <link>https://skiplabs.io/blog</link>
         <description>Skip Blog</description>
-        <lastBuildDate>Mon, 14 Apr 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 21 Apr 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Event-Hidden Architectures]]></title>
+            <link>https://skiplabs.io/blog/event-hidden-arch</link>
+            <guid>https://skiplabs.io/blog/event-hidden-arch</guid>
+            <pubDate>Mon, 21 Apr 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Interactive features without events]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="event-hidden-architectures">Event-Hidden Architectures<a href="https://skiplabs.io/blog/event-hidden-arch#event-hidden-architectures" class="hash-link" aria-label="Direct link to Event-Hidden Architectures" title="Direct link to Event-Hidden Architectures">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-did-we-get-here">How did we get here?<a href="https://skiplabs.io/blog/event-hidden-arch#how-did-we-get-here" class="hash-link" aria-label="Direct link to How did we get here?" title="Direct link to How did we get here?">​</a></h3>
+<p>One of the most powerful and consistent trends in software for the past decade has been the move from single stack to cloud native applications.  Cloud native applications are inherently distributed and have become popular as developers are drawn to the convenience of containers and platform-as-a-service infrastructure.</p>
+<p>The API-ification of important subsystems means today hardly anyone would consider implementing their own payments, shipping, SMS, chat, billing or shopping cart functionality.  Instead they’ll lean on Stripe, Twilio, Shopify, Shippo, etc; accelerating time-to-value and further distributing the functions of the application.</p>
+<p>In the last few years developers have moved quickly to incorporate more and diverse AI features into their applications, but AI models and application logic compute requirements are quite different from one another and therefore seldom run in the same stack, further distributing the application.</p>
+<p><img decoding="async" loading="lazy" alt="Example architecture diagram" src="https://skiplabs.io/assets/images/event-hidden-arch-diagram-c1aba9f72902f8e42bba5446da846b8f.png" width="1999" height="950" class="img_ev3q"></p>
+<p>Some have called for a “back to basics” approach of a single stack or modular monolith, but given the list of external demands on modern application development, distributed is unlikely to go away.  Instead it’s becoming a more common approach for application architectures, not less, especially for “successful” applications that need to modularize to support more customers, users and features.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="10-years-of-bad-advice">10 years of bad advice<a href="https://skiplabs.io/blog/event-hidden-arch#10-years-of-bad-advice" class="hash-link" aria-label="Direct link to 10 years of bad advice" title="Direct link to 10 years of bad advice">​</a></h3>
+<p>One can sympathize with the desire for a “back to basics” approach to cloud-native applications.  There are many “pros” to writing cloud-native, distributed applications but living with them has been miserable for developers and operators alike.  “Cloud native” is effectively synonymous with “distributed,” and “distributed” is another way to say a network is parked in the middle of the application.  This changes engineering and operations in many big and subtle ways.  The most common and questionable advice to tackle these challenges has been “event-driven.”</p>
+<p><img decoding="async" loading="lazy" alt="Events everywhere buzz lightyear" src="https://skiplabs.io/assets/images/event-hidden-arch-buzz-acbaedff9968f8e157c6fd250debb057.png" width="888" height="500" class="img_ev3q"></p>
+<p>Events are the biggest reason why engineering teams try to postpone distributed or microservice architectures for as long as possible.  “Cloud native” and “microservices” have unwittingly become synonymous with “event-driven” and sullied their reputations in the process.</p>
+<p>Events remain a useful technical mechanism to transmit state and data among application resources but they are a miserable experience for developers and operators alike.  Events:</p>
+<ul>
+<li>Put application state and data in dozens of queues that make the application prone to failures, race conditions and incorrect results</li>
+<li>Force developers to think and program asynchronously which is more complex and time consuming than synchronous code</li>
+<li>Require developers know more than just their portion of the code and application domain: they also need to understand how to work with queues, caches and event schemas</li>
+<li>Make applications difficult to troubleshoot as there is no one place to understand the state and data for an application</li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="Revolution against API schemas" src="https://skiplabs.io/assets/images/event-hidden-arch-revolution-b2990c52168724f15247afff08c8b1e3.png" width="1024" height="1024" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="event-driven-vs-event-hidden"><del>Event-driven</del> vs event-hidden<a href="https://skiplabs.io/blog/event-hidden-arch#event-driven-vs-event-hidden" class="hash-link" aria-label="Direct link to event-driven-vs-event-hidden" title="Direct link to event-driven-vs-event-hidden">​</a></h3>
+<p>The event-driven approach <em>was</em> necessary in 2020 but it isn’t any longer in 2025.  Today’s modern abstractions ensure it’s unnecessary to make a faustian bargain between the flexibility &amp; scale of distributed and the existential dread inspired by event-driven architectures.</p>
+<p>There are three innovations that together allow us to engineer applications as event-driven but where developers and operators are fully abstracted away from the events themselves.</p>
+<ol>
+<li>
+<p><a href="https://react.dev/" target="_blank" rel="noopener noreferrer">React</a> paired with client state management frameworks like <a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">Redux</a>, <a href="https://xstate.js.org/" target="_blank" rel="noopener noreferrer">Xstate</a> or <a href="https://zustand-demo.pmnd.rs/" target="_blank" rel="noopener noreferrer">Zustand</a> create a simple, productive experience for frontend engineering.  Frontend engineers are able to implement simple, performant UI components that can support complex application behaviors while outsourcing state and DOM management to the framework.</p>
+</li>
+<li>
+<p>Durable execution systems like <a href="https://temporal.io/" target="_blank" rel="noopener noreferrer">Temporal</a>, <a href="https://restate.dev/" target="_blank" rel="noopener noreferrer">Restate</a> and <a href="https://www.dbos.dev/" target="_blank" rel="noopener noreferrer">DBOS</a> ensure distributed backend application writes are always correct within and across services and network boundaries because each function call is durable by default.  All of the convenient guarantees of an ACID transaction are injected into the everyday programming experience.</p>
+</li>
+<li>
+<p>Reactive frameworks for incremental computation like <a href="https://github.com/SkipLabs/skip" target="_blank" rel="noopener noreferrer">Skip</a> make it simple to implement distributed application reads from multiple sources and latencies to disparate clients and views.  Developers can blend data from multiple REST and/or streaming sources but write their logic as simple map functions free from references to infrastructure or events.  Because the services are reactive, performance and correctness concerns like cache invalidations are outsourced to the framework.</p>
+</li>
+</ol>
+<p>All three technologies share many of the same design principles.  Each technology caters to a different area of the application (client changes, backend writes, backend reads) but they all:</p>
+<ul>
+<li>Provide a declarative developer experiences free from references to infrastructure</li>
+<li>Are event-driven “under the covers” but don’t leak these details to users</li>
+<li>Work asynchronously, supporting high levels of concurrency but still make the developer experience feel effectively synchronous</li>
+<li>Manage and in some cases enforce immutability of functions and/or data</li>
+<li>Handle application state as a first class concern</li>
+<li>Allow for modularity and incremental adoption - they don’t enforce “one pure approach” on an entire application</li>
+<li>Can run locally or globally</li>
+<li>Are open source</li>
+</ul>
+<p>Collectively, these frameworks provide a substantial upgrade to applications across developer experience, feature velocity, correctness, efficiency and operational reliability.  Software development returns to a simpler, low context model; developers do not need to learn the unique quirks of low level infrastructure or understand the overall application architecture just to build or enhance their part of the application.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="new-powers">New powers<a href="https://skiplabs.io/blog/event-hidden-arch#new-powers" class="hash-link" aria-label="Direct link to New powers" title="Direct link to New powers">​</a></h3>
+<p>Burying events doesn’t just simplify engineering, it grants engineers with new powers in the process.</p>
+<p><strong>Transparency</strong></p>
+<p>Ironically, with event-hidden engineering, every behavior of the application is now more visible in an actionable way because events are held in lower layers of the stack that understand their semantics and context.</p>
+<p><strong>State Handling</strong></p>
+<p>Events are not the only thing that get hidden.  By extension state handling, state changes and their implications for correctness are also buried in this new model.  The new developer experience is just implementing as if forever at “init time.”  All the progressions to get from 1 init time state to a future init time state are handled by the platforms powering the event-hidden architecture.</p>
+<p><strong>Replayability</strong></p>
+<p>Lastly, event-hidden architectures nearly always enable replayability.  Keeping events and state in a separate, well abstracted place makes it possible to give developers and operations teams a general way to time travel through the application’s computation.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://skiplabs.io/blog/event-hidden-arch#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion">​</a></h3>
+<p>In 2025 it turns out you can go home again: you can build feature-rich, scaled, distributed applications without having to interact with events, queues and the industry of patterns, frameworks and consultants that came with them.</p>
+<p>Event-hidden will become the default web app architecture for the next 10 years.</p>
+<p><img decoding="async" loading="lazy" alt="Next ten years" src="https://skiplabs.io/assets/images/event-hidden-arch-next-ten-years-78dc2ca9ab2712500e8846371ee1355e.png" width="1600" height="800" class="img_ev3q"></p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[New built-in resources for Skip services]]></title>
             <link>https://skiplabs.io/blog/non-reactive-dependencies</link>

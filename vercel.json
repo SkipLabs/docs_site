@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://skiplabs.io/",
+      "permanent": false
+    }
+  ]
+}

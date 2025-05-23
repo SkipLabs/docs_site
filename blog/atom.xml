@@ -2,11 +2,93 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://skiplabs.io/blog</id>
     <title>Skip Blog</title>
-    <updated>2025-05-16T00:00:00.000Z</updated>
+    <updated>2025-05-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://skiplabs.io/blog"/>
     <subtitle>Skip Blog</subtitle>
     <icon>https://skiplabs.io/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[A CLI to streamline the creation of Skip services]]></title>
+        <id>https://skiplabs.io/blog/announcing_create_skip_service_cli</id>
+        <link href="https://skiplabs.io/blog/announcing_create_skip_service_cli"/>
+        <updated>2025-05-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[A CLI designed to streamline the creation and initialization of Skip services]]></summary>
+        <content type="html"><![CDATA[<p>Hello Skippers. Today, we are excited to announce the release of <code>create-skip-service</code>: A CLI Tool for Skip Service Development. It aims to simplify the development workflow by providing a convenient way to bootstrap new Skip services.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service &lt;project-name&gt; &lt;options&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-are-we-talking-about">What are we talking about?<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#what-are-we-talking-about" class="hash-link" aria-label="Direct link to What are we talking about?" title="Direct link to What are we talking about?">​</a></h2>
+<p><code>create-skip-service</code> is a CLI tool that helps developers quickly set up new Skip service projects with customizable templates, saving the time you'd need to write boilerplate code. It's designed to follow best practices and provide a consistent starting point for all Skip service development.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="key-features">Key Features<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#key-features" class="hash-link" aria-label="Direct link to Key Features" title="Direct link to Key Features">​</a></h2>
+<ul>
+<li><strong>Quick Project Setup</strong>: A one-liner to have a fully working service</li>
+<li><strong>Template System</strong>: Pick the right template for you, ask us for templates you need</li>
+<li><strong>Git Integration</strong>: Automatic Git repository initialization (optional)</li>
+<li><strong>Customizable</strong>: Once installed, templates are meant to be enhanced for YOUR project</li>
+<li><strong>Verbose Logging</strong>: Detailed output for debugging and understanding the setup process, so you know what's going on</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="getting-started">Getting Started<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started">​</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank" rel="noopener noreferrer">KISS</a> - here is the one-liner to get started:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="basic-usage">Basic Usage<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#basic-usage" class="hash-link" aria-label="Direct link to Basic Usage" title="Direct link to Basic Usage">​</a></h3>
+<p>Of course, we've kept in mind that not all projects are alike, so here are a few options to get what's right for you:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Create a new service with default template</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Create a service with a postgres integration</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service --template with_postgres</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Create a service without Git initialization</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service --nogit</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Run with verbose logging</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service --verbose</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="available-options">Available Options<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#available-options" class="hash-link" aria-label="Direct link to Available Options" title="Direct link to Available Options">​</a></h2>
+<ul>
+<li><code>--template, -t</code>: Specify the template to use (default: "default")</li>
+<li><code>--nogit</code>: To NOT initialize a Git repository, otherwise git is initialized with a first commit</li>
+<li><code>--verbose, -v</code>: Run with verbose logging</li>
+<li><code>--quiet, -q</code>: Run with minimal logging</li>
+<li><code>--force, -f</code>: Force overwrite if directory exists</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-create-skip-service">Why create-skip-service?<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#why-create-skip-service" class="hash-link" aria-label="Direct link to Why create-skip-service?" title="Direct link to Why create-skip-service?">​</a></h2>
+<p>We created this tool to address several common challenges in Skip service development:</p>
+<ol>
+<li><strong>Efficiency</strong>: Reduce the time spent on project setup and configuration</li>
+<li><strong>Standardization</strong>: Provide a unified way to create and manage Skip services</li>
+<li><strong>Flexibility</strong>: Support different templates and configurations while maintaining consistency</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="contributing">Contributing<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#contributing" class="hash-link" aria-label="Direct link to Contributing" title="Direct link to Contributing">​</a></h2>
+<p>We welcome contributions to <code>create-skip-service</code>! Whether it's bug reports, feature requests, or code contributions, your input helps make this tool better for everyone.</p>
+<ul>
+<li>GitHub Repository: <a href="https://github.com/SkipLabs/create-skip-service" target="_blank" rel="noopener noreferrer">SkipLabs/create-skip-service</a></li>
+<li>Issues: <a href="https://github.com/SkipLabs/create-skip-service/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-next">What's Next?<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?">​</a></h2>
+<p>We're actively working on improving <code>create-skip-service</code> with plans for:</p>
+<ul>
+<li>Additional template options</li>
+<li>Enhanced configuration options</li>
+<li>More detailed documentation</li>
+<li>Community-driven template contributions</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="try-it-out">Try It Out!<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#try-it-out" class="hash-link" aria-label="Direct link to Try It Out!" title="Direct link to Try It Out!">​</a></h2>
+<p>Give it a go! And keep us posted on what you are building. Feedback is bliss, right?</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="wrapping-up">Wrapping Up<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#wrapping-up" class="hash-link" aria-label="Direct link to Wrapping Up" title="Direct link to Wrapping Up">​</a></h2>
+<p><code>create-skip-service</code> represents our commitment to making Skip service development more efficient and enjoyable. By handling the boilerplate setup automagically<sup><a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fn-1-9cae41" id="user-content-fnref-1-9cae41" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup>, we believe this tool will help developers focus on what matters most - building great services.</p>
+<p>As of today, we are already on our way to improving and augmenting the number of options and templates. Come back and help us sort priorities!</p>
+<p>We have a <a href="https://discord.com/channels/1093901946441703434/1093901946441703437" target="_blank" rel="noopener noreferrer">Discord server</a>, why don't you swing by and say hi?</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-next-1">What's Next?<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#whats-next-1" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?">​</a></h2>
+<p>For the next Skip article, what should I tackle first? You tell me!</p>
+<ul>
+<li>Scaling your Skip service horizontally?</li>
+<li>Integrating with frontend frameworks like React?</li>
+<li>Managing authorization and privacy per user?</li>
+<li>What else would be most useful to you <em>now</em>?</li>
+</ul>
+<!-- -->
+<section data-footnotes="true" class="footnotes"><h2 class="anchor anchorWithStickyNavbar_LWe7 sr-only" id="footnote-label">Footnotes<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes">​</a></h2>
+<ol>
+<li id="user-content-fn-1-9cae41">
+<p>not a typo ;-) <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fnref-1-9cae41" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content>
+        <author>
+            <name>Hugo Venturini</name>
+            <uri>https://www.linkedin.com/in/venturini/</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Building a Real-time Blog with Skip and PostgreSQL]]></title>
         <id>https://skiplabs.io/blog/postgresql_and_skip</id>

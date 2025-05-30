@@ -4,10 +4,46 @@
         <title>Skip Blog</title>
         <link>https://skiplabs.io/blog</link>
         <description>Skip Blog</description>
-        <lastBuildDate>Fri, 23 May 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 30 May 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[React + Vite in front of a Skip Service - the template]]></title>
+            <link>https://skiplabs.io/blog/skip_with_react_vite</link>
+            <guid>https://skiplabs.io/blog/skip_with_react_vite</guid>
+            <pubDate>Fri, 30 May 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Build a modern chat app with real-time updates using Skip's reactive data system, React, and Vite]]></description>
+            <content:encoded><![CDATA[<p>Hello skippers. Today, we are introducing a new template to our collection: React + Vite. While our previous blog posts focused on building skip services, this new template represents our first step into the frontend, bringing together the best of both worlds: front and back.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-skip-chat --template with_react_vite</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-inside-the-template">What's Inside the Template?<a href="https://skiplabs.io/blog/skip_with_react_vite#whats-inside-the-template" class="hash-link" aria-label="Direct link to What's Inside the Template?" title="Direct link to What's Inside the Template?">​</a></h2>
+<p>Our React + Vite template for Skip Services comes with everything you need to get started on building a modern web application: an easy to manipulate end-to-end data flow from the user interface to the backend, and vice-versa (reactive programming enthusiasts, I have your attention now).</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="getting-started">Getting Started<a href="https://skiplabs.io/blog/skip_with_react_vite#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started">​</a></h2>
+<p>To create a new project with our React + Vite template, simply run:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-skip-chat --template with_react_vite --verbose</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">cd my-skip-chat   # enter the project directory</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">./setup.sh        # and set up the project</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Setting up the project will end up with:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">✅ Setup complete!</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">To run the application:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. Start the reactive service:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   cd reactive_service &amp;&amp; pnpm start</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. In a new terminal, start the frontend:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   cd frontend &amp;&amp; pnpm dev</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">The frontend will be available at http://localhost:5173</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>This could hardly ever be simpler :-p</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="if-you-open-the-project-directory">If you open the project directory<a href="https://skiplabs.io/blog/skip_with_react_vite#if-you-open-the-project-directory" class="hash-link" aria-label="Direct link to If you open the project directory" title="Direct link to If you open the project directory">​</a></h2>
+<p>In both subprojects, <code>frontend</code> and <code>reactive_service</code>, we've hardcoded some values, and taken shortcuts here and there in order to be straight to the point: making reactive programming easy to get, easy to grasp, easy to adopt, easy to embrace. easy to marry... ok, one step too far.</p>
+<p>One or two cool things you will want to try:</p>
+<ul>
+<li>plugging into a DB from the backend, we can give you some help : <a href="https://skiplabs.io/blog/postgresql_and_skip" target="_blank" rel="noopener noreferrer">Building a Real-time Blog with Skip and PostgreSQL</a></li>
+<li>having several conversations on screen, one per tab</li>
+<li>integrating your user-management system</li>
+<li>integrating an AI agent to discuss into the chat</li>
+</ul>
+<p>We have a <a href="https://discord.com/channels/1093901946441703434/1093901946441703437" target="_blank" rel="noopener noreferrer">Discord server</a>, why don't you swing by and say hi, ask a question or two?</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-next">What's Next?<a href="https://skiplabs.io/blog/skip_with_react_vite#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?">​</a></h2>
+<p>For the next Skip article, what should I tackle first? You tell me!</p>
+<ul>
+<li>Scaling your Skip service horizontally?</li>
+<li>Having an AI agent interacting in the chat ?</li>
+<li>Managing authorization and privacy per user?</li>
+<li>What else would be most useful to you now?</li>
+</ul>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[A CLI to streamline the creation of Skip services]]></title>
             <link>https://skiplabs.io/blog/announcing_create_skip_service_cli</link>

@@ -4,10 +4,107 @@
         <title>Skip Blog</title>
         <link>https://skiplabs.io/blog</link>
         <description>Skip Blog</description>
-        <lastBuildDate>Fri, 30 May 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 06 Jun 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Dynamically scaling your Skip services]]></title>
+            <link>https://skiplabs.io/blog/horizontal-scaling</link>
+            <guid>https://skiplabs.io/blog/horizontal-scaling</guid>
+            <pubDate>Fri, 06 Jun 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[How to horizontally scale Skip services with Kubernetes]]></description>
+            <content:encoded><![CDATA[<p>Skip makes it fast and easy to build reactive services which efficiently update
+their outputs in response to input changes, powering real-time features and
+saving resources by avoiding unnecessary recomputations.</p>
+<p>The technical foundation that makes this possible is Skip's hyper-efficient
+reactive computation graph, which is written in the Skip programming language,
+runs natively, and takes great pains to efficiently represent and manipulate
+the data underlying your reactive system.</p>
+<p>However, that still requires memory, compute, and other resources -- so what do
+you do when traffic spikes or grows beyond the capacity of even a powerful
+single machine? Scale out and distribute your reactive service across more
+machines, of course!</p>
+<p>We've recently built out some capabilities to make this easy, using a
+distributed leader/follower architecture to dramatically increase the number of
+concurrent resource instances that a Skip service can support.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="leaderfollower-architecture">Leader/Follower architecture<a href="https://skiplabs.io/blog/horizontal-scaling#leaderfollower-architecture" class="hash-link" aria-label="Direct link to Leader/Follower architecture" title="Direct link to Leader/Follower architecture">​</a></h2>
+<p>A single Skip service consists of:</p>
+<ul>
+<li>
+<p>a <strong>shared computation graph</strong> representing the portion of that service's
+computations that is common among all of its clients: some data structures,
+aggregations, partially-computed results, or the like that are always
+maintained up-to-date regardless of client requests, and</p>
+</li>
+<li>
+<p>one or more <strong>resources</strong> which can be instantiated by clients, dynamically
+extending the computation graph as needed to produce data streams customized
+by user-specific context or request parameters.</p>
+</li>
+</ul>
+<p>In practice, the work of maintaining the shared computation graph should not
+massively increase under spiking load, but the work of maintaining resource
+instances and serving their data streams <em>will</em> increase in proportion to the
+number of concurrent clients.</p>
+<p>This dynamic affords an opportunity for <strong>horizontal scaling</strong>: we can maintain the
+shared computation graph just once on a
+<a href="https://skiplabs.io/docs/api/helpers/functions/asLeader" target="_blank" rel="noopener noreferrer"><em>leader</em></a> and mirror
+it to each of any number of
+<a href="https://skiplabs.io/docs/api/helpers/functions/asFollower" target="_blank" rel="noopener noreferrer"><em>followers</em></a>,
+among which resource instances are evenly distributed, as illustrated in the
+following diagram:</p>
+<p><img decoding="async" loading="lazy" alt="Leader-follower architecture" src="https://skiplabs.io/assets/images/leader_follower_arch-381167f19ded784eba293fa2178c43ce.png" width="1218" height="1025" class="img_ev3q"></p>
+<p>This diagram shows the structure of a distributed Skip service and the data flow
+for a single client request. When client A requests a live data stream, a
+reverse proxy forwards that to an available follower, selecting follower 2 in
+this example. That follower then sets up a reactive compute graph to maintain
+the requested data, incorporating user context and query parameters from client
+A as well as any shared inputs from the leader.</p>
+<p>This design allows to instantiate many more resources for many more clients than
+a single Skip service could handle alone, while maintaining the clean/simple
+semantics and low latency of a single-service deployment.</p>
+<p>To see this in action, you can pull our example, run it locally, and navigate to
+<code>localhost</code> in your browser:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service hackernews --example hackernews --verbose</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">docker compose -f hackernews/compose.distributed.yml up --build</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>To see more options or run the application in alternative configurations,
+consult the <code>README.md</code>
+<a href="https://github.com/SkipLabs/skip/tree/main/examples/hackernews/README.md" target="_blank" rel="noopener noreferrer">online</a>
+or in the <code>hackernews</code> directory created by <code>create-skip-service</code>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="kubernetes">Kubernetes<a href="https://skiplabs.io/blog/horizontal-scaling#kubernetes" class="hash-link" aria-label="Direct link to Kubernetes" title="Direct link to Kubernetes">​</a></h2>
+<p>Running a distributed reactive service is a great way to handle larger amounts
+of traffic and/or more complex reactive computations, but what's really
+important is to be able to easily scale your reactive system up and down when
+your product goes viral, traffic spikes, and your pager goes off in the middle
+of the night.</p>
+<p>We've recently built out some Kubernetes
+<a href="https://github.com/SkipLabs/skip/tree/main/examples/hackernews/kubernetes/distributed_skip" target="_blank" rel="noopener noreferrer">configuration</a>
+to make this as easy as running <code>kubectl scale --replicas=$X ...</code> (or the
+GUI/dashboard equivalent if you prefer or are running on a hosted platform)
+without breaking any clients or requiring any changes in your reactive service
+or other backend components.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Try it yourself! Run the hackernews example linked above using its Kubernetes
+configuration, then try running <code>kubectl scale --replicas=$REPLICAS statefulset rhn-skip</code> with varying number of <code>REPLICAS</code> (at least 2, for one leader and one
+follower) and see your Skip service scale up and down without downtime.</p></div></div>
+<p>The core idea is simple: your reactive Skip service is a Kubernetes
+<a href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/" target="_blank" rel="noopener noreferrer">StatefulSet</a>,
+giving each pod a stable and unique network identity.  When a new pod is added
+(either at startup or when scaling up), it registers itself with the cluster's
+ingress load balancer.</p>
+<p>When a resource is instantiated, the resulting data stream's identifier encodes
+the follower hosting the stream, allowing the load balancer to route external
+traffic to the proper Skip instance.  When traffic subsides and the deployment
+scales down, the pod is taken out of rotation by the load balancer, until a
+subsequent scale-up brings it back into use.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="wrap-up">Wrap-up<a href="https://skiplabs.io/blog/horizontal-scaling#wrap-up" class="hash-link" aria-label="Direct link to Wrap-up" title="Direct link to Wrap-up">​</a></h2>
+<p>Everyone's infrastructure and application are different, so let us know if there
+are other frameworks or tools you'd like to see supported or used in our
+examples and demos!</p>
+<p>We're also happy to help you scale out your reactive service using Skip, either
+by adapting these tools to your environment or advising on your setup.  Reach
+out and show us what you're building, or come join the
+<a href="https://discord.gg/rby6YUqGxQ" target="_blank" rel="noopener noreferrer">Discord</a>!</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[React + Vite in front of a Skip Service - the template]]></title>
             <link>https://skiplabs.io/blog/skip_with_react_vite</link>

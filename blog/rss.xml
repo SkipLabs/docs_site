@@ -597,7 +597,8 @@ As such, care should be taken when setting up a polled dependency to choose a re
             <guid>https://skiplabs.io/blog/why-skip</guid>
             <pubDate>Tue, 11 Feb 2025 12:00:01 GMT</pubDate>
             <description><![CDATA[Why use the Skip framework?]]></description>
-            <content:encoded><![CDATA[<p><strong>Skip After Meta</strong></p>
+            <content:encoded><![CDATA[<p><strong>Skip After Meta</strong>
+image: /img/skip.png</p>
 <p>Facebook allowed us to open source both Hack and Skiplang so we could share both with the larger engineering community.  I eventually decided to leave Facebook (now Meta) to build on the work of Hack and Skiplang and develop technologies that would address the same challenges we had at Facebook but for engineers generally.  To do this, SkipLabs needed to incorporate two new technologies to make the work we did at Facebook usable in a normal engineering context.</p>
 <!-- -->
 <ol>

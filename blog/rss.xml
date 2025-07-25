@@ -4,10 +4,140 @@
         <title>Skip Blog</title>
         <link>https://skiplabs.io/blog</link>
         <description>Skip Blog</description>
-        <lastBuildDate>Fri, 11 Jul 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 25 Jul 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[From Zero to Running Service to Demonstrate Cache Invalidation]]></title>
+            <link>https://skiplabs.io/blog/getting_started_with_create_skip_service</link>
+            <guid>https://skiplabs.io/blog/getting_started_with_create_skip_service</guid>
+            <pubDate>Fri, 25 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A practical walkthrough with create-skip-service to quickly bootstrap a Skip service using cache invalidation]]></description>
+            <content:encoded><![CDATA[<p>Building reactive services can feel overwhelming when you're starting from scratch. Fortunately, the <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli"><code>create-skip-service</code></a> CLI tool makes it incredibly easy to get up and running with a fully functional Skip service in minutes. Today, we'll walk through using it to create a service based on our <a href="https://skiplabs.io/blog/cache_invalidation">cache invalidation example</a>, demonstrating how reactive systems handle the complex caching challenges we discussed earlier.</p>
+<p>In this practical guide, you'll see exactly how to go from an empty directory to a running distributed system that showcases Skip's reactive caching capabilities.</p>
+<!-- -->
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-three-command-journey">The Three-Command Journey<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#the-three-command-journey" class="hash-link" aria-label="Direct link to The Three-Command Journey" title="Direct link to The Three-Command Journey">​</a></h2>
+<p>Getting started with Skip services has never been simpler. Here's literally all you need to do:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service myproj --example cache_invalidation --verbose</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">cd myproj</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">docker compose up --build</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>That's it. In just three commands, you'll have a fully functional reactive service running locally with all the infrastructure pieces you need.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-happening-under-the-hood">What's Happening Under the Hood<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#whats-happening-under-the-hood" class="hash-link" aria-label="Direct link to What's Happening Under the Hood" title="Direct link to What's Happening Under the Hood">​</a></h2>
+<p>Let's break down what each command accomplishes:</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="step-1-project-generation">Step 1: Project Generation<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#step-1-project-generation" class="hash-link" aria-label="Direct link to Step 1: Project Generation" title="Direct link to Step 1: Project Generation">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service myproj --example cache_invalidation --verbose</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>The <code>--example cache_invalidation</code> flag tells the CLI to use the cache invalidation template instead of the default basic template. This gives you a complete working example that demonstrates:</p>
+<ul>
+<li><strong>Reactive caching in action</strong>: See how data updates automatically propagate through the system</li>
+<li><strong>Multi-service architecture</strong>: A realistic setup with multiple components working together</li>
+<li><strong>Database integration</strong>: PostgreSQL backend with reactive queries</li>
+<li><strong>Frontend integration</strong>: A web interface to interact with your service</li>
+<li><strong>Container orchestration</strong>: Docker Compose configuration for easy local development</li>
+</ul>
+<p>The <code>--verbose</code> flag shows you exactly what's happening during the setup process, which is particularly helpful when you're learning how the pieces fit together.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="step-2-enter-your-project">Step 2: Enter Your Project<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#step-2-enter-your-project" class="hash-link" aria-label="Direct link to Step 2: Enter Your Project" title="Direct link to Step 2: Enter Your Project">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">cd myproj</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Simple enough - navigate into your newly created project directory.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="step-3-launch-everything">Step 3: Launch Everything<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#step-3-launch-everything" class="hash-link" aria-label="Direct link to Step 3: Launch Everything" title="Direct link to Step 3: Launch Everything">​</a></h3>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">docker compose up --build</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>This single command orchestrates your entire distributed system:</p>
+<ul>
+<li>Builds the reactive service container</li>
+<li>Starts a PostgreSQL database</li>
+<li>Launches the web frontend</li>
+<li>Sets up a reverse proxy to route traffic</li>
+<li>Connects all the pieces together</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-you-get-out-of-the-box">What You Get Out of the Box<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#what-you-get-out-of-the-box" class="hash-link" aria-label="Direct link to What You Get Out of the Box" title="Direct link to What You Get Out of the Box">​</a></h2>
+<p>The cache invalidation example creates a complete distributed system that demonstrates the concepts we covered in our <a href="https://skiplabs.io/blog/cache_invalidation">earlier article about cache invalidation</a>. Here's what you'll find running:</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-reactive-service">The Reactive Service<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#the-reactive-service" class="hash-link" aria-label="Direct link to The Reactive Service" title="Direct link to The Reactive Service">​</a></h3>
+<p>A Skip service that handles data processing and caching automatically. Unlike traditional systems where you'd need to manually manage cache invalidation, this service uses Skip's reactive architecture to keep everything in sync.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="database-integration">Database Integration<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#database-integration" class="hash-link" aria-label="Direct link to Database Integration" title="Direct link to Database Integration">​</a></h3>
+<p>A PostgreSQL database with sample data and schemas. The reactive service connects to this database and automatically updates its computed results whenever the underlying data changes.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="web-interface">Web Interface<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#web-interface" class="hash-link" aria-label="Direct link to Web Interface" title="Direct link to Web Interface">​</a></h3>
+<p>A user-friendly frontend where you can:</p>
+<ul>
+<li>View real-time data updates</li>
+<li>Trigger changes to see reactive updates in action</li>
+<li>Monitor system performance and behavior</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="infrastructure-components">Infrastructure Components<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#infrastructure-components" class="hash-link" aria-label="Direct link to Infrastructure Components" title="Direct link to Infrastructure Components">​</a></h3>
+<ul>
+<li><strong>Reverse proxy</strong>: Routes traffic between your frontend and backend services</li>
+<li><strong>Container networking</strong>: Everything configured to work together seamlessly</li>
+<li><strong>Volume persistence</strong>: Your database persists between container restarts</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="seeing-reactivity-in-action">Seeing Reactivity in Action<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#seeing-reactivity-in-action" class="hash-link" aria-label="Direct link to Seeing Reactivity in Action" title="Direct link to Seeing Reactivity in Action">​</a></h2>
+<p>Once your system is running, you can observe Skips unique reactive caching behavior:</p>
+<ol>
+<li><strong>Make a change</strong> in the database through the web interface</li>
+<li><strong>Watch as computed results update automatically</strong> without any manual cache invalidation</li>
+<li><strong>See consistent data</strong> across all parts of your application instantly</li>
+</ol>
+<p>This is exactly the kind of automatic cache management we discussed in our <a href="https://skiplabs.io/blog/cache_invalidation">cache invalidation article</a> - no more worrying about stale data or complex invalidation logic.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="beyond-the-example">Beyond the Example<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#beyond-the-example" class="hash-link" aria-label="Direct link to Beyond the Example" title="Direct link to Beyond the Example">​</a></h2>
+<p>The cache invalidation example serves as more than just a demo - it's a foundation you can build upon:</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="for-learning">For Learning<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#for-learning" class="hash-link" aria-label="Direct link to For Learning" title="Direct link to For Learning">​</a></h3>
+<ul>
+<li>Study the code to understand reactive patterns</li>
+<li>Experiment with different data changes to see how updates propagate</li>
+<li>Monitor performance characteristics of incremental updates</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="for-development">For Development<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#for-development" class="hash-link" aria-label="Direct link to For Development" title="Direct link to For Development">​</a></h3>
+<ul>
+<li>Use it as a starting point for your own reactive services</li>
+<li>Replace the sample data with your own domain models</li>
+<li>Add new reactive computations and watch them integrate seamlessly</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="for-production">For Production<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#for-production" class="hash-link" aria-label="Direct link to For Production" title="Direct link to For Production">​</a></h3>
+<ul>
+<li>The containerized architecture scales from development to production</li>
+<li>Add monitoring, logging, and security as needed</li>
+<li>Deploy to your favorite container orchestration platform</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-this-approach-works">Why This Approach Works<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#why-this-approach-works" class="hash-link" aria-label="Direct link to Why This Approach Works" title="Direct link to Why This Approach Works">​</a></h2>
+<p>The combination of <code>create-skip-service</code> and the cache invalidation example demonstrates several key advantages:</p>
+<p><strong>Immediate Gratification</strong>: You can see a complex reactive system working within minutes, not hours or days of setup.</p>
+<p><strong>Real-World Patterns</strong>: This isn't a toy example - it shows you production-ready patterns for building reactive services.</p>
+<p><strong>Learning by Doing</strong>: Instead of reading about reactive concepts in the abstract, you can interact with a running system and see the benefits firsthand.</p>
+<p><strong>Foundation for Growth</strong>: Every piece of the generated code is meant to be customized for your specific needs.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="troubleshooting-common-issues">Troubleshooting Common Issues<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#troubleshooting-common-issues" class="hash-link" aria-label="Direct link to Troubleshooting Common Issues" title="Direct link to Troubleshooting Common Issues">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="port-conflicts">Port Conflicts<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#port-conflicts" class="hash-link" aria-label="Direct link to Port Conflicts" title="Direct link to Port Conflicts">​</a></h3>
+<p>If you're already running services on the default ports, you can modify the <code>docker-compose.yml</code> file to use different port mappings.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="docker-resources">Docker Resources<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#docker-resources" class="hash-link" aria-label="Direct link to Docker Resources" title="Direct link to Docker Resources">​</a></h3>
+<p>The cache invalidation example spins up several containers. Make sure Docker has sufficient memory allocated (at least 4GB recommended).</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="verbose-logging">Verbose Logging<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#verbose-logging" class="hash-link" aria-label="Direct link to Verbose Logging" title="Direct link to Verbose Logging">​</a></h3>
+<p>If something goes wrong during setup, re-run the <code>create-skip-service</code> command with <code>--verbose</code> to see detailed logging that can help identify the issue.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-next">What's Next?<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?">​</a></h2>
+<p>Now that you have a running reactive service, you might want to:</p>
+<ol>
+<li><strong>Explore the code</strong>: Look at how the reactive computations are structured</li>
+<li><strong>Modify the data model</strong>: Add your own tables and see how the system adapts</li>
+<li><strong>Add new features</strong>: Create additional reactive endpoints or computations</li>
+<li><strong>Deploy to production</strong>: Use the containerized setup as a foundation for cloud deployment</li>
+</ol>
+<p>The beauty of starting with <code>create-skip-service</code> is that you get all the boilerplate and infrastructure setup out of the way immediately, letting you focus on the interesting parts of building reactive applications.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="connecting-the-dots">Connecting the Dots<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#connecting-the-dots" class="hash-link" aria-label="Direct link to Connecting the Dots" title="Direct link to Connecting the Dots">​</a></h2>
+<p>This practical walkthrough demonstrates the concepts we covered in our previous articles:</p>
+<ul>
+<li>The <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli">create-skip-service announcement</a> showed you the tool's capabilities</li>
+<li>The <a href="https://skiplabs.io/blog/cache_invalidation">cache invalidation deep dive</a> explained the theoretical benefits of reactive caching</li>
+<li>This article shows you how to experience those benefits firsthand in just three commands</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="wrapping-up">Wrapping Up<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#wrapping-up" class="hash-link" aria-label="Direct link to Wrapping Up" title="Direct link to Wrapping Up">​</a></h2>
+<p>The journey from zero to a running reactive service doesn't have to be complicated. With <code>create-skip-service</code> and the cache invalidation example, you can have a sophisticated distributed system running locally in minutes.</p>
+<p>More importantly, you get to experience firsthand how reactive systems solve the cache invalidation challenges that plague traditional architectures. Instead of reading about the benefits of automatic cache updates, you can see them working in your own environment.</p>
+<p>Give it a try, and let us know what you build! The reactive paradigm unlocks new perspectives for how we think about data consistency and performance in distributed systems.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-would-you-like-to-see-next">What Would You Like to See Next?<a href="https://skiplabs.io/blog/getting_started_with_create_skip_service#what-would-you-like-to-see-next" class="hash-link" aria-label="Direct link to What Would You Like to See Next?" title="Direct link to What Would You Like to See Next?">​</a></h2>
+<p>Now that you've got a reactive service running, what aspects would you like us to dive deeper into?</p>
+<ul>
+<li>Adding authentication and user-specific data to reactive services?</li>
+<li>Scaling reactive architectures across multiple machines?</li>
+<li>Integrating with modern frontend frameworks like React or Vue?</li>
+<li>Monitoring and observability for reactive systems?</li>
+<li>Migration strategies from traditional caching architectures?</li>
+</ul>
+<p>Drop us a line in our <a href="https://discord.com/channels/1093901946441703434/1093901946441703437" target="_blank" rel="noopener noreferrer">Discord server</a> and let us know what you'd find most valuable!</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Discussion with Lucas, a SkipLabs engineer]]></title>
             <link>https://skiplabs.io/blog/interview_lucas</link>

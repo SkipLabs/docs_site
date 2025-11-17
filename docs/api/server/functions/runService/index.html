@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.7.0">
 <title data-rh="true">runService() | Skip</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://skiplabs.io/img/skip.png"><meta data-rh="true" name="twitter:image" content="https://skiplabs.io/img/skip.png"><meta data-rh="true" property="og:url" content="https://skiplabs.io/docs/api/server/functions/runService"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="runService() | Skip"><meta data-rh="true" name="description" content="Initialize and start a reactive Skip service."><meta data-rh="true" property="og:description" content="Initialize and start a reactive Skip service."><link data-rh="true" rel="icon" href="/img/favicon.svg"><link data-rh="true" rel="canonical" href="https://skiplabs.io/docs/api/server/functions/runService"><link data-rh="true" rel="alternate" href="https://skiplabs.io/docs/api/server/functions/runService" hreflang="en"><link data-rh="true" rel="alternate" href="https://skiplabs.io/docs/api/server/functions/runService" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Skip RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Skip Atom Feed"><link rel="stylesheet" href="/assets/css/styles.90c9ca5d.css">
-<script src="/assets/js/runtime~main.2ba2ffe5.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.7a40a3b0.js" defer="defer"></script>
 <script src="/assets/js/main.311ffb0e.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -55,7 +55,7 @@ Destroy a resource instance.</p>
 Under normal circumstances, resource instances are deleted automatically after some period of inactivity; this interface enables immediately deleting live streams under exceptional circumstances.</p>
 </li>
 <li>
-<p>`GET /v1/healthcheck
+<p><code>GET /healthz</code>
 Check that the Skip service is running normally.
 Returns HTTP 200 if the service is healthy, for use in monitoring, deployments, and the like.</p>
 </li>
@@ -72,6 +72,11 @@ Each event will be a serialization of a <code>CollectionUpdate</code> of the for
 </li>
 </ul>
 <div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">    event: (init | update)\n</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    id: &lt;watermark&gt;\n</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    data: &lt;values&gt;\n\n</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<ul>
+<li><code>GET /healthz</code>
+Check that the Skip service is running normally.
+Returns HTTP 200 if the service is healthy, for use in monitoring, deployments, and the like.</li>
+</ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="parameters">Parameters<a href="#parameters" class="hash-link" aria-label="Direct link to Parameters" title="Direct link to Parameters">​</a></h2>
 <table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>service</code></td><td><code>SkipService</code></td><td>The SkipService definition to run.</td></tr><tr><td><code>options</code></td><td>{ <code>control_port</code>: <code>number</code>; <code>no_cors</code>: <code>boolean</code>; <code>platform</code>: <code>&quot;native&quot;</code> | <code>&quot;wasm&quot;</code>; <code>streaming_port</code>: <code>number</code>; }</td><td>Service configuration options.</td></tr><tr><td><code>options.control_port</code></td><td><code>number</code></td><td>Port on which control service will listen.</td></tr><tr><td><code>options.no_cors</code>?</td><td><code>boolean</code></td><td>Disable CORS for the streaming endpoint.</td></tr><tr><td><code>options.platform</code>?</td><td><code>&quot;native&quot;</code> | <code>&quot;wasm&quot;</code></td><td>Skip runtime platform to be used to run the service: either <code>wasm</code> (the default) or <code>native</code>.</td></tr><tr><td><code>options.streaming_port</code></td><td><code>number</code></td><td>Port on which streaming service will listen.</td></tr></tbody></table>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="returns">Returns<a href="#returns" class="hash-link" aria-label="Direct link to Returns" title="Direct link to Returns">​</a></h2>

@@ -2,11 +2,48 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://skiplabs.io/blog</id>
     <title>Skip Blog</title>
-    <updated>2026-05-18T00:00:00.000Z</updated>
+    <updated>2026-06-01T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://skiplabs.io/blog"/>
     <subtitle>Skip Blog</subtitle>
     <icon>https://skiplabs.io/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[SkipLabs Launches Skipper, The Runtime for the Era of AI-Generated Software]]></title>
+        <id>https://skiplabs.io/blog/press_release</id>
+        <link href="https://skiplabs.io/blog/press_release"/>
+        <updated>2026-06-01T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[From the creator of Hack, the language behind Facebook’s business logic, comes a closed-loop coding agent that turns one prompt into running software.]]></summary>
+        <content type="html"><![CDATA[<p>From the creator of Hack, the language behind Facebook’s business logic, comes a closed-loop coding agent that turns one prompt into running software.</p>
+<p><strong>PARIS, FRANCE — June 1, 2026</strong> — SkipLabs today launched Skipper, a closed-loop coding agent that takes a single prompt and returns a running, validated service. Skipper was built by Julien Verlaguet, creator of Facebook's Hack programming language, alongside a team of engineers drawn from Facebook, Microsoft, Microsoft Research, Meta and the broader systems community. It serves as the architectural layer sitting between AI models and shipped software.
+Skipper is designed specifically for technical builders: product managers running their own AI workflows, engineering teams shipping production services, and developers who demand architectural discipline without architectural overhead.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-missing-link-in-ai-coding">The Missing Link in AI Coding<a href="https://skiplabs.io/blog/press_release#the-missing-link-in-ai-coding" class="hash-link" aria-label="Direct link to The Missing Link in AI Coding" title="Direct link to The Missing Link in AI Coding" translate="no">​</a></h2>
+<p>Skipper arrives at a critical inflection point. While AI coding tools have made the first draft of a service nearly free, what remains is the gap between almost running and actually running in production. This is an architecture problem—one that doesn't disappear just because a language model gets smarter.</p>
+<blockquote>
+<p>"Building correct software has always been an architecture problem disguised as a coding problem," said Julien Verlaguet, Founder and CEO of SkipLabs. "AI did not change that; it just made the problem more urgent."
+Skipper sits beneath the foundation models. Rather than competing with Claude, GPT, or Gemini, it acts as the substrate that turns their output into finished software rather than a draft awaiting review. When a builder describes the service they want, Skipper handles the entire pipeline autonomously: decomposing the work into manageable pieces, routing each piece to the specific AI model best suited for that task, generating and validating the code, and returning a reliable, running service. No developer review, no oversight cycles, no back-and-forth.</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="fixing-state-and-concurrency">Fixing State and Concurrency<a href="https://skiplabs.io/blog/press_release#fixing-state-and-concurrency" class="hash-link" aria-label="Direct link to Fixing State and Concurrency" title="Direct link to Fixing State and Concurrency" translate="no">​</a></h2>
+<p>State management and concurrency are the hardest parts of writing correct software, and the exact areas where AI most often produces broken code.
+Skipper solves this via its reactive runtime—drawn from the open-source Skip framework Verlaguet built at Facebook in 2017. Because the runtime automatically handles state management and concurrency, the AI model never has to reason about cause and effect across a sprawling state graph. By shrinking the surface area where AI can make mistakes, Skipper ensures more of what it produces actually works.</p>
+<blockquote>
+<p>"Closed loop is not a feature," Verlaguet added. "It is a different theory of what an AI coding tool is supposed to do. The current generation makes the developer faster. The next generation makes the developer's involvement optional. Describe what you want and Skipper builds it."</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-ships-today">What Ships Today<a href="https://skiplabs.io/blog/press_release#what-ships-today" class="hash-link" aria-label="Direct link to What Ships Today" title="Direct link to What Ships Today" translate="no">​</a></h2>
+<p>Launching today, Skipper delivers the core closed-loop experience: a single prompt becomes a running service. A model-agnostic harness routes each task to the AI model best suited for it, with no lock-in to any single foundation model. And Skipper-built services integrate with the outside world from day one — calling external APIs, fetching live data, and posting to other systems to ensure the software fits into a real stack, not just a sandbox.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-product-roadmap">The Product Roadmap<a href="https://skiplabs.io/blog/press_release#the-product-roadmap" class="hash-link" aria-label="Direct link to The Product Roadmap" title="Direct link to The Product Roadmap" translate="no">​</a></h2>
+<p>In the weeks following launch, SkipLabs will roll out SKJS, a sound, TypeScript-compatible type system that lets Skipper understand how changes to one part of the code affect the rest.  Next comes in-place incremental updates, allowing builders to change a specification and have Skipper modify the running service without a full rebuild. By late 2026, SkipLabs will deliver precise, zero-pollution awareness of the full codebase at any scale.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="who-skipper-is-for">Who Skipper is For<a href="https://skiplabs.io/blog/press_release#who-skipper-is-for" class="hash-link" aria-label="Direct link to Who Skipper is For" title="Direct link to Who Skipper is For" translate="no">​</a></h2>
+<p>Skipper is built for those who experience the frustration of watching an AI generate a near-working idea, yet possess the technical knowledge to see exactly why the last 10% breaks. It is designed for technical product managers wiring AI into production tools via real API integrations rather than sandboxed demos. It also serves engineering teams shipping production backend services who want architectural discipline without the per-line review cycle, and software development firms building AI-driven systems for clients whose code absolutely must ship.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-decade-making-code-provably-correct">A Decade Making Code Provably Correct<a href="https://skiplabs.io/blog/press_release#a-decade-making-code-provably-correct" class="hash-link" aria-label="Direct link to A Decade Making Code Provably Correct" title="Direct link to A Decade Making Code Provably Correct" translate="no">​</a></h2>
+<p>The architecture beneath Skipper predates the current AI coding wave and is backed by over a decade of infrastructure-first philosophy. Verlaguet created Hack, the gradually typed programming language that powers Facebook's business logic and over 100 million lines of production code. Amplify Partners, which led SkipLabs' $8 million seed round, noted in its investment memo that Verlaguet is <em>"one of the top two to three programming language designers in the world."</em> His work on programming language design has also been publicly endorsed by Turing Award winner and former Meta Chief AI Scientist Yann LeCun.
+<strong>Skipper is available today at <a href="https://skipperai.dev/" target="_blank" rel="noopener noreferrer" class="">skipperai.dev</a>.</strong></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="about-skiplabs">About SkipLabs<a href="https://skiplabs.io/blog/press_release#about-skiplabs" class="hash-link" aria-label="Direct link to About SkipLabs" title="Direct link to About SkipLabs" translate="no">​</a></h2>
+<p>SkipLabs builds the infrastructure layer that makes AI-generated code work in production. Founded in 2022 by Julien Verlaguet, creator of Facebook's Hack programming language, the company develops tools that close the loop between intent and running software for technical product managers, engineering teams, and the firms that build production systems on top of AI. SkipLabs is backed by Amplify Partners, with angel investors including Yann LeCun and Spencer Kimball, co-founder and CEO of Cockroach Labs. For more information, visit <a href="https://skiplabs.io/" target="_blank" rel="noopener noreferrer" class="">skiplabs.io</a>.</p>]]></content>
+        <author>
+            <name>Julien Verlaguet</name>
+            <uri>https://x.com/JulienVerlaguet</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[What a Closed-Loop Coding Agent Actually Is]]></title>
         <id>https://skiplabs.io/blog/closed_loop_coding_agent</id>
@@ -456,7 +493,7 @@ examples and demos!</p>
 <p>We're also happy to help you scale out your reactive service using Skip, either
 by adapting these tools to your environment or advising on your setup.  Reach
 out and show us what you're building, or come join the
-<a href="https://discord.gg/2nzP2PZj" target="_blank" rel="noopener noreferrer" class="">Discord</a>!</p>]]></content>
+<a href="https://discord.gg/ss4zxfgUBH" target="_blank" rel="noopener noreferrer" class="">Discord</a>!</p>]]></content>
         <author>
             <name>Benno Stein</name>
             <uri>https://bennostein.org</uri>
@@ -488,7 +525,7 @@ out and show us what you're building, or come join the
 <li class="">integrating your user-management system</li>
 <li class="">integrating an AI agent to discuss into the chat</li>
 </ul>
-<p>We have a <a href="https://discord.gg/2nzP2PZj" target="_blank" rel="noopener noreferrer" class="">Discord server</a>, why don't you swing by and say hi, ask a question or two?</p>
+<p>We have a <a href="https://discord.gg/ss4zxfgUBH" target="_blank" rel="noopener noreferrer" class="">Discord server</a>, why don't you swing by and say hi, ask a question or two?</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next">What's Next?<a href="https://skiplabs.io/blog/skip_with_react_vite#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?" translate="no">​</a></h2>
 <p>For the next Skip article, what should I tackle first? You tell me!</p>
 <ul>
@@ -560,9 +597,9 @@ out and show us what you're building, or come join the
 <p>Give it a go! And keep us posted on what you are building. Feedback is bliss, right?</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service</span><br></div></code></pre></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="wrapping-up">Wrapping Up<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#wrapping-up" class="hash-link" aria-label="Direct link to Wrapping Up" title="Direct link to Wrapping Up" translate="no">​</a></h2>
-<p><code>create-skip-service</code> represents our commitment to making Skip service development more efficient and enjoyable. By handling the boilerplate setup automagically<sup><a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fn-1-9cae41" id="user-content-fnref-1-9cae41" data-footnote-ref="true" aria-describedby="footnote-label" class="anchorTargetStickyNavbar_Vzrq">1</a></sup>, we believe this tool will help developers focus on what matters most - building great services.</p>
+<p><code>create-skip-service</code> represents our commitment to making Skip service development more efficient and enjoyable. By handling the boilerplate setup automagically<sup><a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fn-1-c6cca6" id="user-content-fnref-1-c6cca6" data-footnote-ref="true" aria-describedby="footnote-label" class="anchorTargetStickyNavbar_Vzrq">1</a></sup>, we believe this tool will help developers focus on what matters most - building great services.</p>
 <p>As of today, we are already on our way to improving and augmenting the number of options and templates. Come back and help us sort priorities!</p>
-<p>We have a <a href="https://discord.gg/2nzP2PZj" target="_blank" rel="noopener noreferrer" class="">Discord server</a>, why don't you swing by and say hi?</p>
+<p>We have a <a href="https://discord.gg/ss4zxfgUBH" target="_blank" rel="noopener noreferrer" class="">Discord server</a>, why don't you swing by and say hi?</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next-1">What's Next?<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#whats-next-1" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?" translate="no">​</a></h2>
 <p>For the next Skip article, what should I tackle first? You tell me!</p>
 <ul>
@@ -574,8 +611,8 @@ out and show us what you're building, or come join the
 <!-- -->
 <section data-footnotes="true" class="footnotes"><h2 class="anchor anchorTargetStickyNavbar_Vzrq sr-only" id="footnote-label">Footnotes<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes" translate="no">​</a></h2>
 <ol>
-<li class="anchorTargetStickyNavbar_Vzrq" id="user-content-fn-1-9cae41">
-<p>not a typo ;-) <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fnref-1-9cae41" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+<li class="anchorTargetStickyNavbar_Vzrq" id="user-content-fn-1-c6cca6">
+<p>not a typo ;-) <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fnref-1-c6cca6" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
 </section>]]></content>

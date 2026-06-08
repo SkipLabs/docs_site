@@ -2,11 +2,53 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://skiplabs.io/blog</id>
     <title>Skip Blog</title>
-    <updated>2026-06-01T00:00:00.000Z</updated>
+    <updated>2026-06-03T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://skiplabs.io/blog"/>
     <subtitle>Skip Blog</subtitle>
     <icon>https://skiplabs.io/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[Verify the description, not the effect]]></title>
+        <id>https://skiplabs.io/blog/side_effects</id>
+        <link href="https://skiplabs.io/blog/side_effects"/>
+        <updated>2026-06-03T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[How does a closed-loop coding agent verify a side effect it can't cheaply or totally observe? By checking the effect's description against a fixed contract, not the effect itself.]]></summary>
+        <content type="html"><![CDATA[<p>Of all the questions under the launch post, one actually mattered. How does a closed loop close on side effects? Sending an email. Logging to Sentry. And the harder version: calling an internal service at a big company, where there's no public sandbox and no shared test environment to point at.</p>
+<p>It's the right question, because it's the one that should break the pitch if we got the architecture wrong. A verify-loop is convincing when the thing it checks is cheap and total to check. Side effects are neither.</p>
+<p>So let me answer it honestly. Which means starting with what we don't do.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-honest-part-first">The honest part first<a href="https://skiplabs.io/blog/side_effects#the-honest-part-first" class="hash-link" aria-label="Direct link to The honest part first" title="Direct link to The honest part first" translate="no">​</a></h2>
+<p>When we say Skipper <a href="https://skiplabs.io/blog/closed_loop_coding_agent" target="_blank" rel="noopener noreferrer" class="">closes the loop</a>, we mean it the way control theory means it: the feedback signal has to be trustworthy enough to act on.</p>
+<p>Type-checking and deterministic execution give us that. They're cheap to run, and the verdict is total. The check passes for every input or it doesn't, and we don't have to believe a story about it.</p>
+<p>A side effect gives us none of that. You can't cheaply verify that an email arrived. You can't verify it totally either, because the answer lives on someone else's mail server on a Tuesday.</p>
+<p>So the loop doesn't check whether the effect happened. It checks whether the effect was described correctly. That distinction is the whole post.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="we-already-do-this-its-called-a-compiler">We already do this. It's called a compiler.<a href="https://skiplabs.io/blog/side_effects#we-already-do-this-its-called-a-compiler" class="hash-link" aria-label="Direct link to We already do this. It's called a compiler." title="Direct link to We already do this. It's called a compiler." translate="no">​</a></h2>
+<p>We didn't invent this for AI. Compilers have done it for 50 years.</p>
+<p>A C compiler verifies that your call to <code>send()</code> matches its declared signature, every argument type and the return shape, and it does that without ever opening a socket. It has never once sent a packet to find out whether your code is correct. That's the whole trick.</p>
+<p><a href="https://skiplabs.io/blog/codegen_as_compiler" target="_blank" rel="noopener noreferrer" class="">Treat Agent Output Like Compiler Output</a> argued we should treat agent output the same way: stop reading each artifact by hand, build the verification into the process that produces it. Side effects are where that argument has to prove it isn't hand-waving. They're the one place people assume the compiler move can't reach. The three pieces below are what reaching looks like.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-effects-are-typed-values">1. Effects are typed values<a href="https://skiplabs.io/blog/side_effects#1-effects-are-typed-values" class="hash-link" aria-label="Direct link to 1. Effects are typed values" title="Direct link to 1. Effects are typed values" translate="no">​</a></h2>
+<p>Anything that touches the outside world (an email send, an HTTP call, a hash, a database write) isn't an opaque call the model drops wherever it likes. You declare it up front as a typed <em>external</em>: a fixed contract of inputs, outputs, and params.</p>
+<p>There's a rule the reactive core enforces with no exceptions. The core can't do I/O at all. The deterministic, reactive part of a Skipper service never touches the network. An effect executes in exactly one sanctioned place: a separate subprocess at the edge, reached through a generated wrapper.</p>
+<p>So the loop's job here is narrow and decidable. It checks that the constructed effect type-checks against its contract. Execution gets deferred across the boundary. The model describes the email send. It can't smuggle a socket into the part of the program we're trying to prove things about.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-the-sandbox-runs-against-typed-doubles">2. The sandbox runs against typed doubles<a href="https://skiplabs.io/blog/side_effects#2-the-sandbox-runs-against-typed-doubles" class="hash-link" aria-label="Direct link to 2. The sandbox runs against typed doubles" title="Direct link to 2. The sandbox runs against typed doubles" translate="no">​</a></h2>
+<p>For the loop to run a service end to end, the boundary needs something on the other side. That something is a stub. Each external call gets pinned to a typed mock record: given these params, return this value, or this error.</p>
+<p>An email send becomes <code>called with {to, subject, body}, returns sent</code>, and the assertion lives in the handler that consumes the result. The model's call site has to match the declared intent or the test fails. You can't hide a malformed payload, because the payload's shape is part of the contract.</p>
+<p>Reactive computation, the <a href="https://skiplabs.io/blog/cache_invalidation" target="_blank" rel="noopener noreferrer" class="">Skip Runtime</a> the whole thing runs on, makes those outputs reproducible from the same inputs. Same inputs, same graph, same result, every run. So the verification pass is deterministic without ever touching the network. We're not flaking on some third-party rate limit while trying to decide whether the code is correct. We keep those problems apart on purpose.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-the-contract-is-the-unit-of-verification">3. The contract is the unit of verification<a href="https://skiplabs.io/blog/side_effects#3-the-contract-is-the-unit-of-verification" class="hash-link" aria-label="Direct link to 3. The contract is the unit of verification" title="Direct link to 3. The contract is the unit of verification" translate="no">​</a></h2>
+<p>Here's where the big-company question gets its real answer.</p>
+<p>You hand Skipper an OpenAPI spec, or a prompt it derives one from, and from that point, for that run, the spec is frozen. It's the fixed reference. The agent codes against it. The loop type-checks against it, unit-tests against it, validates every call site against it. The typed stubs derived from the externals are what let the generated code actually run.</p>
+<p>Look at what that does to the "no cross-company sandbox" problem. It dissolves it. There was never going to be a live internal service inside the verification loop, and there doesn't need to be. The interface is fixed, so the model's stochasticity is contained even when the implementation is remote, proprietary, and sitting behind 3 VPNs you've never heard of.</p>
+<p>Verification happens against the contract. The live service never enters the loop, so its absence costs you nothing. You need their types, and that's it.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-the-loop-will-not-tell-you">What the loop will not tell you<a href="https://skiplabs.io/blog/side_effects#what-the-loop-will-not-tell-you" class="hash-link" aria-label="Direct link to What the loop will not tell you" title="Direct link to What the loop will not tell you" translate="no">​</a></h2>
+<p>Here's the part I'd rather say out loud than have you find out later.</p>
+<p>The loop does not claim the effect succeeded in production. It doesn't promise the email reached an inbox, that Sentry ingested the event, that the internal service was even reachable when your code ran for real. Delivery, idempotency, retries: that's the subprocess at the edge running against real credentials, outside the verification loop.</p>
+<p>We keep that integration layer visible and separate instead of folding it into the word "verified." I'm doing that on purpose. A closed loop with a dishonest sensor is just an unstable system with extra steps, flying the plane confidently into the ground.</p>
+<p>"Verified" has to mean exactly one thing, or it means nothing. Here it means the code is type-correct against the contracts and runs deterministically against them. Whether the third party 3 time zones away is having a good day is a separate question, and the loop doesn't pretend to answer it.</p>
+<p>The model is stochastic. The pipe around it isn't. Side effects don't change that. Quietly pretending the loop covers delivery would, so it doesn't, and it says so.</p>]]></content>
+        <author>
+            <name>Hugo Venturini</name>
+            <uri>https://www.linkedin.com/in/venturini/</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SkipLabs Launches Skipper, The Runtime for the Era of AI-Generated Software]]></title>
         <id>https://skiplabs.io/blog/press_release</id>
@@ -597,7 +639,7 @@ out and show us what you're building, or come join the
 <p>Give it a go! And keep us posted on what you are building. Feedback is bliss, right?</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npx create-skip-service my-service</span><br></div></code></pre></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="wrapping-up">Wrapping Up<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#wrapping-up" class="hash-link" aria-label="Direct link to Wrapping Up" title="Direct link to Wrapping Up" translate="no">​</a></h2>
-<p><code>create-skip-service</code> represents our commitment to making Skip service development more efficient and enjoyable. By handling the boilerplate setup automagically<sup><a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fn-1-c6cca6" id="user-content-fnref-1-c6cca6" data-footnote-ref="true" aria-describedby="footnote-label" class="anchorTargetStickyNavbar_Vzrq">1</a></sup>, we believe this tool will help developers focus on what matters most - building great services.</p>
+<p><code>create-skip-service</code> represents our commitment to making Skip service development more efficient and enjoyable. By handling the boilerplate setup automagically<sup><a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fn-1-9cae41" id="user-content-fnref-1-9cae41" data-footnote-ref="true" aria-describedby="footnote-label" class="anchorTargetStickyNavbar_Vzrq">1</a></sup>, we believe this tool will help developers focus on what matters most - building great services.</p>
 <p>As of today, we are already on our way to improving and augmenting the number of options and templates. Come back and help us sort priorities!</p>
 <p>We have a <a href="https://discord.gg/ss4zxfgUBH" target="_blank" rel="noopener noreferrer" class="">Discord server</a>, why don't you swing by and say hi?</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next-1">What's Next?<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#whats-next-1" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?" translate="no">​</a></h2>
@@ -611,8 +653,8 @@ out and show us what you're building, or come join the
 <!-- -->
 <section data-footnotes="true" class="footnotes"><h2 class="anchor anchorTargetStickyNavbar_Vzrq sr-only" id="footnote-label">Footnotes<a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#footnote-label" class="hash-link" aria-label="Direct link to Footnotes" title="Direct link to Footnotes" translate="no">​</a></h2>
 <ol>
-<li class="anchorTargetStickyNavbar_Vzrq" id="user-content-fn-1-c6cca6">
-<p>not a typo ;-) <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fnref-1-c6cca6" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+<li class="anchorTargetStickyNavbar_Vzrq" id="user-content-fn-1-9cae41">
+<p>not a typo ;-) <a href="https://skiplabs.io/blog/announcing_create_skip_service_cli#user-content-fnref-1-9cae41" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
 </section>]]></content>
